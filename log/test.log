@@ -1,0 +1,29 @@
+  [1m[36m (1.7ms)[0m  [1mDROP DATABASE IF EXISTS "userbase_test"[0m
+PG::Error: ERROR:  must be owner of database userbase_test
+: DROP DATABASE IF EXISTS "userbase_test"
+  [1m[36m (0.4ms)[0m  [1mDROP DATABASE IF EXISTS "userbase_test"[0m
+PG::Error: ERROR:  must be owner of database userbase_test
+: DROP DATABASE IF EXISTS "userbase_test"
+  [1m[36m (112.1ms)[0m  [1mDROP DATABASE IF EXISTS "userbase_test"[0m
+  [1m[35m (0.4ms)[0m  CREATE DATABASE "userbase_test" ENCODING = 'unicode'
+PG::Error: ERROR:  permission denied to create database
+: CREATE DATABASE "userbase_test" ENCODING = 'unicode'
+  [1m[36m (0.1ms)[0m  [1mDROP DATABASE IF EXISTS "userbase_test"[0m
+  [1m[35m (0.3ms)[0m  CREATE DATABASE "userbase_test" ENCODING = 'unicode'
+PG::Error: ERROR:  permission denied to create database
+: CREATE DATABASE "userbase_test" ENCODING = 'unicode'
+  [1m[36m (129.4ms)[0m  [1mDROP DATABASE IF EXISTS "userbase_test"[0m
+  [1m[35m (233.8ms)[0m  CREATE DATABASE "userbase_test" ENCODING = 'unicode'
+  [1m[36mSQL (1.1ms)[0m  [1mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (7.7ms)[0m  CREATE TABLE "users" ("id" serial primary key, "name" character varying(255), "email" character varying(255), "created_at" timestamp, "updated_at" timestamp, "password_digest" character varying(255), "remember_token" character varying(255), "admin" boolean DEFAULT 'f') 
+  [1m[36m (1.4ms)[0m  [1mCREATE UNIQUE INDEX "index_users_on_email" ON "users" USING btree ("email")[0m
+  [1m[35m (1.0ms)[0m  CREATE INDEX "index_users_on_remember_token" ON "users" USING btree ("remember_token")
+  [1m[36m (1.1ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (1.0ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.4ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35m (0.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20140320005301')
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20140226223603')[0m
+  [1m[35m (0.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20140226235308')
+  [1m[36m (0.3ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20140228161229')[0m
+  [1m[35m (0.3ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20140318202844')
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
