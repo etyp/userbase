@@ -27,3 +27,583 @@ PG::Error: ERROR:  permission denied to create database
   [1m[36m (0.3ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20140228161229')[0m
   [1m[35m (0.3ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20140318202844')
   [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (113.0ms)[0m  [1mDROP DATABASE IF EXISTS "userbase_test"[0m
+  [1m[35m (254.2ms)[0m  CREATE DATABASE "userbase_test" ENCODING = 'unicode'
+  [1m[36mSQL (1.2ms)[0m  [1mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (7.6ms)[0m  CREATE TABLE "properties" ("id" serial primary key, "user_id" integer, "name" character varying(255), "description" text, "beds" integer, "baths" float, "rent" integer, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (4.6ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "name" character varying(255), "email" character varying(255), "created_at" timestamp, "updated_at" timestamp, "password_digest" character varying(255), "remember_token" character varying(255), "admin" boolean DEFAULT 'f', "owner" boolean DEFAULT 'f') [0m
+  [1m[35m (1.4ms)[0m  CREATE UNIQUE INDEX "index_users_on_email" ON "users" USING btree ("email")
+  [1m[36m (1.3ms)[0m  [1mCREATE INDEX "index_users_on_remember_token" ON "users" USING btree ("remember_token")[0m
+  [1m[35m (1.1ms)[0m  CREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) 
+  [1m[36m (1.2ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.3ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20140326225608')[0m
+  [1m[35m (0.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20140226223603')
+  [1m[36m (0.3ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20140226235308')[0m
+  [1m[35m (0.3ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20140228161229')
+  [1m[36m (0.3ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20140318202844')[0m
+  [1m[35m (0.3ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20140320005301')
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20140326225048')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (1.1ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_1@site.com') LIMIT 1
+  [1m[36mSQL (3.5ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:33:18 UTC +00:00], ["email", "person_1@site.com"], ["name", "Person 1"], ["password_digest", "$2a$04$U3rHPCAWQMdQp32RHUVlC.AmMUwRE/bpPpSGeabM6cYmbYZHEp.1m"], ["remember_token", "99f4bd080570ac16e7a8ff1f8f2c1d4029034ab0"], ["updated_at", Thu, 27 Mar 2014 17:33:18 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_2@site.com') LIMIT 1
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:33:18 UTC +00:00], ["email", "person_2@site.com"], ["name", "Person 2"], ["password_digest", "$2a$04$VVrLi4rCUe4y0ajQuQlxw.vZGHKIAxFPzwmh57GYaSwv2ipphkM9O"], ["remember_token", "564cfa6aeac55b9aa44b62f2497b85309505096b"], ["updated_at", Thu, 27 Mar 2014 17:33:18 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_3@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:33:18 UTC +00:00], ["email", "person_3@site.com"], ["name", "Person 3"], ["password_digest", "$2a$04$/Eyb2ABtLrepny4ZGt8NceJBkXeMP98/mKYsZ3tNa6sRulC1e6OFG"], ["remember_token", "3c2a41c1885674898af0a2c3d1eeca81c408f944"], ["updated_at", Thu, 27 Mar 2014 17:33:18 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_4@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:33:18 UTC +00:00], ["email", "person_4@site.com"], ["name", "Person 4"], ["password_digest", "$2a$04$wbzyZBrwbAySyzl7wY6Jv.j8GDsoEzm2G3HzkdwdLdjgOUTDk8p9C"], ["remember_token", "1860890628b66d4e0833fda76e3f1d7e4c145a5c"], ["updated_at", Thu, 27 Mar 2014 17:33:18 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_5@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:33:18 UTC +00:00], ["email", "person_5@site.com"], ["name", "Person 5"], ["password_digest", "$2a$04$lMF1w2aucJmMaSAbE8RYE.ysh0g4PGXVeWVSxW2WD843UN8hMQ22K"], ["remember_token", "a9fdd3387de29db6ec78e98fe2365a6626db00e2"], ["updated_at", Thu, 27 Mar 2014 17:33:18 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_6@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:33:18 UTC +00:00], ["email", "person_6@site.com"], ["name", "Person 6"], ["password_digest", "$2a$04$qgYk0WHkNOGX9Cz3hBlrXOaSDntSXnK6JS8g0X/F5u7CNvHNEYSz6"], ["remember_token", "6eac90d9e0e1ad97bec24655b902e79da916a3c6"], ["updated_at", Thu, 27 Mar 2014 17:33:18 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_7@site.com') LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:33:18 UTC +00:00], ["email", "person_7@site.com"], ["name", "Person 7"], ["password_digest", "$2a$04$6.1jZS2EIkYRKB4q3F4tpeyv82nCM/S4xHboH.z0lj738YZ/hWBSy"], ["remember_token", "a5f5bbeb58b151b5469dbac12a0b24364533afda"], ["updated_at", Thu, 27 Mar 2014 17:33:18 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.9ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_1@site.com') LIMIT 1
+  [1m[36mSQL (3.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:33:34 UTC +00:00], ["email", "person_1@site.com"], ["name", "Person 1"], ["password_digest", "$2a$04$.nweqx0Ehv/vBDjsYMsOV.msHPcGMHAWwHj7wsLJlwW1Msv8PV1qe"], ["remember_token", "e23ac7b4acad12504c4029cd95a0bc5eed1a3542"], ["updated_at", Thu, 27 Mar 2014 17:33:34 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_2@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:33:34 UTC +00:00], ["email", "person_2@site.com"], ["name", "Person 2"], ["password_digest", "$2a$04$JU9zz9O5NF.S7XbGn4Us5.VbbEHkerp14OJ2UPq2O1fcWD8C2IJri"], ["remember_token", "4d5cc82338ce590bdc32b10c4669a100586731bb"], ["updated_at", Thu, 27 Mar 2014 17:33:34 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_3@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:33:34 UTC +00:00], ["email", "person_3@site.com"], ["name", "Person 3"], ["password_digest", "$2a$04$7w286fzekR9iW9cb0GxqgehEdbtwpX2BChIxRPSRHsFLmjesk7/ye"], ["remember_token", "9148236bd3ca0549281a69186bb458d2e179c781"], ["updated_at", Thu, 27 Mar 2014 17:33:34 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_4@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:33:34 UTC +00:00], ["email", "person_4@site.com"], ["name", "Person 4"], ["password_digest", "$2a$04$0PWFVpIvCa0.fZ0hn703beBT0ltP/KqDozK3Q0bUBLC7eQKVIsQGq"], ["remember_token", "fc341dd80a356ced84cbb82083288d5bf616c1ac"], ["updated_at", Thu, 27 Mar 2014 17:33:34 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_5@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:33:34 UTC +00:00], ["email", "person_5@site.com"], ["name", "Person 5"], ["password_digest", "$2a$04$nefPt/UKQy2FoEgYnHe6YeJl3vMaEbcmbht3LID6XoBjES2pNHwsq"], ["remember_token", "50e4db18e6609f64d22a9e330afc0958f6480ab3"], ["updated_at", Thu, 27 Mar 2014 17:33:34 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_6@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:33:34 UTC +00:00], ["email", "person_6@site.com"], ["name", "Person 6"], ["password_digest", "$2a$04$iVGxj0seHDEsxfYvbU3eFe9LFcknawoI8N5k84Jfj1Iipe.z.QiiC"], ["remember_token", "737ef8c1658ecc82e02f3c8e118a7eb580500755"], ["updated_at", Thu, 27 Mar 2014 17:33:34 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.9ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_1@site.com') LIMIT 1
+  [1m[36mSQL (3.2ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:34:25 UTC +00:00], ["email", "person_1@site.com"], ["name", "Person 1"], ["password_digest", "$2a$04$0l0irxy6UpinmqwAN3ArmO.TtVlOxl9Z2r06svfKXu3XCAtaDQviK"], ["remember_token", "71f730a0e9408a7a5865ae5ca5352d504791eb31"], ["updated_at", Thu, 27 Mar 2014 17:34:25 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_2@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:34:25 UTC +00:00], ["email", "person_2@site.com"], ["name", "Person 2"], ["password_digest", "$2a$04$fyLDNT9FCW/MPqdjTGkN7.P8SY0fRWtm82SwFzhLHT63jG.7Ubs0i"], ["remember_token", "c4a3f4f6fbd69e7cbdfaa83608ebf31a47ae5a72"], ["updated_at", Thu, 27 Mar 2014 17:34:25 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_3@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:34:25 UTC +00:00], ["email", "person_3@site.com"], ["name", "Person 3"], ["password_digest", "$2a$04$bHH6ueI0n5RAf8OiJgEHj.RbIkEdX9JIv1L.RXZidzMZfjX7esY1i"], ["remember_token", "4a815ad59746399ada310bde735f3355c318445e"], ["updated_at", Thu, 27 Mar 2014 17:34:25 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_4@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:34:25 UTC +00:00], ["email", "person_4@site.com"], ["name", "Person 4"], ["password_digest", "$2a$04$1zZf5mkL3uOho2btVuZPrO0OoOTWsot/uPNkOks/xkpfN7DM7gR0O"], ["remember_token", "85d594ea8a34f40c4db609f7e061fb75f3181dc9"], ["updated_at", Thu, 27 Mar 2014 17:34:25 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_5@site.com') LIMIT 1
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:34:25 UTC +00:00], ["email", "person_5@site.com"], ["name", "Person 5"], ["password_digest", "$2a$04$doCcibHARiMi0LAeFCXlDup6PlVpapFNX2MSczEgt1kXIRNP0S7iC"], ["remember_token", "5588aabb421d695b8df2543833bc1bc396210e0e"], ["updated_at", Thu, 27 Mar 2014 17:34:25 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_6@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:34:25 UTC +00:00], ["email", "person_6@site.com"], ["name", "Person 6"], ["password_digest", "$2a$04$VnvKDrp/CMmTHiMRXf.ts.NKa6eyyS4RWE.laKb4.j2EoJh4wGyKm"], ["remember_token", "bbeea752156e2690453ca3d1e6a4ee90cb2aa59e"], ["updated_at", Thu, 27 Mar 2014 17:34:25 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_7@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:34:25 UTC +00:00], ["email", "person_7@site.com"], ["name", "Person 7"], ["password_digest", "$2a$04$YkvlDPkHpsyVjvSfN3WD9utIe36T13QMM7qiljhkkgvq/oyqz68RO"], ["remember_token", "7fb6908fbec7e0d963895b60fee3e1ee63e6b288"], ["updated_at", Thu, 27 Mar 2014 17:34:25 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mUser Load (0.9ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 20]]
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.9ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_1@site.com') LIMIT 1
+  [1m[36mSQL (3.2ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:34:43 UTC +00:00], ["email", "person_1@site.com"], ["name", "Person 1"], ["password_digest", "$2a$04$WlV/tw92.D7WU/l6uS2CNutnJ54gZfn//0njZx5nilfNmUluclsUe"], ["remember_token", "1c3bb507928b94c977680de8ce8f6bb54a648f8f"], ["updated_at", Thu, 27 Mar 2014 17:34:43 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_2@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:34:43 UTC +00:00], ["email", "person_2@site.com"], ["name", "Person 2"], ["password_digest", "$2a$04$STn7tfEUk0/f9FZqZ7RZFOYZHBjgq6XX1CIllzy06bUDNSljpFjru"], ["remember_token", "f33a8acc8f76e6354e1934d0cfe90d181f2c4a54"], ["updated_at", Thu, 27 Mar 2014 17:34:43 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_3@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:34:43 UTC +00:00], ["email", "person_3@site.com"], ["name", "Person 3"], ["password_digest", "$2a$04$M/Oh/GWy1yByw58uc2GSxOkcmOOzeCKavslxteK1x7mD.5oBfI6u6"], ["remember_token", "aeb8e42e408b5e5c329922ef679d0e62aecabbcd"], ["updated_at", Thu, 27 Mar 2014 17:34:43 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_4@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:34:43 UTC +00:00], ["email", "person_4@site.com"], ["name", "Person 4"], ["password_digest", "$2a$04$BL3gaZup4CXltiylT33bPeb5yQy0PDbMssOpgb34dO8zRKT033XDu"], ["remember_token", "1aa88b9e9e853c4f7b94d9e5ce21b4cb83ae243b"], ["updated_at", Thu, 27 Mar 2014 17:34:43 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_5@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:34:43 UTC +00:00], ["email", "person_5@site.com"], ["name", "Person 5"], ["password_digest", "$2a$04$DaWzzdHaKcoQ2lQeE31UPuPYq17PBt8YmLhwI4XonZy5BBfmihPIW"], ["remember_token", "f21e6423456a9081f4bbfabce5f1d76aaaad3501"], ["updated_at", Thu, 27 Mar 2014 17:34:43 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_6@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:34:43 UTC +00:00], ["email", "person_6@site.com"], ["name", "Person 6"], ["password_digest", "$2a$04$pscY4r4IZ8I9XAwpTI2dzuSJChJkiO6z/A8eKKHswFIoE0svERuai"], ["remember_token", "a63bde946371763079e8d8e12eca669d526ee99c"], ["updated_at", Thu, 27 Mar 2014 17:34:43 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_7@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:34:43 UTC +00:00], ["email", "person_7@site.com"], ["name", "Person 7"], ["password_digest", "$2a$04$WrflmvXFq59yzb.qZGBAFeYedm3DsEkCCcgYDhr3L6bZvnLTtx6Yu"], ["remember_token", "075e8b70c205e02b910938b125783e787deaaf6f"], ["updated_at", Thu, 27 Mar 2014 17:34:43 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_8@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:34:43 UTC +00:00], ["email", "person_8@site.com"], ["name", "Person 8"], ["password_digest", "$2a$04$pBEurWkoYwZpDy9j4cC/AOfKpkP4VvGKKitTspQdc.07bZCivZAye"], ["remember_token", "c32fba4459f04a39affff99b9c9d2e4a90b3d1e1"], ["updated_at", Thu, 27 Mar 2014 17:34:43 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mUser Load (0.9ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 28]]
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.9ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_1@site.com') LIMIT 1
+  [1m[36mSQL (3.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:43:07 UTC +00:00], ["email", "person_1@site.com"], ["name", "Person 1"], ["password_digest", "$2a$04$BZM/y8Wfn/6H03u2EfI9tuClfzsBCoucTq7pnd1X1gRva4j4OAni."], ["remember_token", "2ef426cf51066880683d9b327b74ab28be90212b"], ["updated_at", Thu, 27 Mar 2014 17:43:07 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_2@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:43:07 UTC +00:00], ["email", "person_2@site.com"], ["name", "Person 2"], ["password_digest", "$2a$04$pAFwHvExNIRVZGhPuZpTx.56AOTwnL/En4Ku/mw6ErcIY0Si/0OzO"], ["remember_token", "728aa60c303e4f9f04e1b673c29344dfc1137898"], ["updated_at", Thu, 27 Mar 2014 17:43:07 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_3@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:43:07 UTC +00:00], ["email", "person_3@site.com"], ["name", "Person 3"], ["password_digest", "$2a$04$FbKrx7EHoOBgoqigJiMS8.MbeuMa/jaIGE6myEIOhHNvD6iYF2h0a"], ["remember_token", "3bee77ab773b3b5a4bfe346cd9c7d1b3cbf1770a"], ["updated_at", Thu, 27 Mar 2014 17:43:07 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_4@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:43:07 UTC +00:00], ["email", "person_4@site.com"], ["name", "Person 4"], ["password_digest", "$2a$04$Z2fcIfQUh4R6upa1.oRqmOrwwZ56QEI7Nzg3XThUy1Kc4xTUiphZW"], ["remember_token", "13751ae2a9735466690631d9744bf018bc5148ed"], ["updated_at", Thu, 27 Mar 2014 17:43:07 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_5@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:43:07 UTC +00:00], ["email", "person_5@site.com"], ["name", "Person 5"], ["password_digest", "$2a$04$76JdizFYntm1XpNM4Ff21OL3YC/Ru35OnbhjqVp3ROJDgYSI2hVa."], ["remember_token", "2ff1e0e4f02a2a28145799131c5823668fcd8bd5"], ["updated_at", Thu, 27 Mar 2014 17:43:07 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_6@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:43:07 UTC +00:00], ["email", "person_6@site.com"], ["name", "Person 6"], ["password_digest", "$2a$04$TG6eocy/W5AfrdMZUXafK.kOA5nXYm.TiM/DA6AsvfHeVr53P43gS"], ["remember_token", "1beb696b0f0057b84abfcc828710c7e2a69247a6"], ["updated_at", Thu, 27 Mar 2014 17:43:07 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_7@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:43:07 UTC +00:00], ["email", "person_7@site.com"], ["name", "Person 7"], ["password_digest", "$2a$04$5bhTnTWWGY5kTeBAk9iBWOdf..uspRnNNCur29jUYvHG0b4GiL/n."], ["remember_token", "e0b69e7a940c2192edb16de0abd060e958c66a84"], ["updated_at", Thu, 27 Mar 2014 17:43:07 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_8@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:43:07 UTC +00:00], ["email", "person_8@site.com"], ["name", "Person 8"], ["password_digest", "$2a$04$YYwnks6gFEmZ9p5hgjNLyOVFC87Pn7IrUsD1bP2feHAEBjm5XPfUu"], ["remember_token", "e4cdac154b0304bc05ef7d6ee70360dd94173eae"], ["updated_at", Thu, 27 Mar 2014 17:43:07 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_9@site.com') LIMIT 1
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:43:07 UTC +00:00], ["email", "person_9@site.com"], ["name", "Person 9"], ["password_digest", "$2a$04$xE.dBQR9mtpXHYEmLiK12O5U8vJKjANqPGKfhznU.Ln8z3m7OJE4O"], ["remember_token", "bd196b1ad68a4dd83b038da6bb8ae47243b17df0"], ["updated_at", Thu, 27 Mar 2014 17:43:07 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mUser Load (1.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 37]]
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.9ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_1@site.com') LIMIT 1
+  [1m[36mSQL (3.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:43:49 UTC +00:00], ["email", "person_1@site.com"], ["name", "Person 1"], ["password_digest", "$2a$04$i/NT3CB0aCJ85yYMxtrNf.knCo1ZPDfDxHx.edodB6KoDtbF3DLre"], ["remember_token", "24c8bd5f9a38751d4c86983549c1e4ada0e75fea"], ["updated_at", Thu, 27 Mar 2014 17:43:49 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_2@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:43:49 UTC +00:00], ["email", "person_2@site.com"], ["name", "Person 2"], ["password_digest", "$2a$04$QDBcW1Ny/x65fuL4QhkVN.8lnCUTO5QViPkAgjIu9UMp.N5AcWLkS"], ["remember_token", "1bb29f71fe7edf3047278f10d4af5ea81d05d338"], ["updated_at", Thu, 27 Mar 2014 17:43:49 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_3@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:43:49 UTC +00:00], ["email", "person_3@site.com"], ["name", "Person 3"], ["password_digest", "$2a$04$IktjmWIftx7jgpb2rsXwI.tjuoEE.oTSyl/J6U7/JJLMeKDdyaLJG"], ["remember_token", "8de1efd8805c40406bc86749555321a492e91dc6"], ["updated_at", Thu, 27 Mar 2014 17:43:49 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_4@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:43:49 UTC +00:00], ["email", "person_4@site.com"], ["name", "Person 4"], ["password_digest", "$2a$04$pZ1wuBuwjLZdZQzk1pJvr.4dxlYeAJW33422nd0Y4Kb02//GGnteG"], ["remember_token", "107270c51d38cd718a53268a5db86ef12cb1e066"], ["updated_at", Thu, 27 Mar 2014 17:43:49 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_5@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:43:49 UTC +00:00], ["email", "person_5@site.com"], ["name", "Person 5"], ["password_digest", "$2a$04$pPhAM1jdwQ19ahMtj.tXX.AOnRtC2lZiSjOYXn9BnZL4pakakRz1u"], ["remember_token", "df136b8784515751910835eb9650a85fe970208a"], ["updated_at", Thu, 27 Mar 2014 17:43:49 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_6@site.com') LIMIT 1
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:43:49 UTC +00:00], ["email", "person_6@site.com"], ["name", "Person 6"], ["password_digest", "$2a$04$zHXe53jCxZBDrgHlxR.LH.b49PN/SifpzRRLirnSgHsUqF4Gcvzoi"], ["remember_token", "06784ac213271bf37699e551c9f7076523c1b393"], ["updated_at", Thu, 27 Mar 2014 17:43:49 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_7@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:43:49 UTC +00:00], ["email", "person_7@site.com"], ["name", "Person 7"], ["password_digest", "$2a$04$uS1qyXYCRYfIoytHjrITQuZ1t97QfCH6QIrGHcBzrAls1uG9.svi6"], ["remember_token", "981e52617bd499641194dc345544683c02a6ba61"], ["updated_at", Thu, 27 Mar 2014 17:43:49 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_8@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:43:49 UTC +00:00], ["email", "person_8@site.com"], ["name", "Person 8"], ["password_digest", "$2a$04$e8xEMa5tdXhTpBd7ehRI9..x1SAUDqJWaH0JBpfDdX9JKNst8iPAi"], ["remember_token", "b8804fd2d434f353ed99c65a3a58988902becb25"], ["updated_at", Thu, 27 Mar 2014 17:43:49 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mUser Load (0.9ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 45]]
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_9@site.com') LIMIT 1[0m
+  [1m[35mSQL (0.7ms)[0m  INSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["created_at", Thu, 27 Mar 2014 17:43:49 UTC +00:00], ["email", "person_9@site.com"], ["name", "Person 9"], ["password_digest", "$2a$04$BGixSUm9bQWmJeYvuosho.EcvNEjTXKQ61rwIzQj0eocbMHEoz4Fa"], ["remember_token", "388ee1f9215b2627c04c9e71525999d98c0046b9"], ["updated_at", Thu, 27 Mar 2014 17:43:49 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.9ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_1@site.com') LIMIT 1
+  [1m[36mSQL (3.5ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:48:58 UTC +00:00], ["email", "person_1@site.com"], ["name", "Person 1"], ["password_digest", "$2a$04$p4f.Tg6uTED5EakqJ6XTj.9.0WD7yj51kkwoBjA67TO2Bm135OzqS"], ["remember_token", "f29f8ad35aa07bd44ab8cd0397a446e214f5beaa"], ["updated_at", Thu, 27 Mar 2014 17:48:58 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_2@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:48:58 UTC +00:00], ["email", "person_2@site.com"], ["name", "Person 2"], ["password_digest", "$2a$04$VwPc04mQ5PUfexLagPp9fuN6NWjBx2oBeZIaDhTXe5px2D8nXDQ9q"], ["remember_token", "20f0d2bff4ffc5e6213c95d738224aa3b55fb7dd"], ["updated_at", Thu, 27 Mar 2014 17:48:58 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_3@site.com') LIMIT 1
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:48:58 UTC +00:00], ["email", "person_3@site.com"], ["name", "Person 3"], ["password_digest", "$2a$04$kAna1E6E0XBWzYZVYgowIO8mnIgW0Ye/m9OZ0ShPdt3nIxt3I9RYu"], ["remember_token", "a23e39ef079a8923046aae67a7b836e0cc34584c"], ["updated_at", Thu, 27 Mar 2014 17:48:58 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_4@site.com') LIMIT 1
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:48:58 UTC +00:00], ["email", "person_4@site.com"], ["name", "Person 4"], ["password_digest", "$2a$04$yjNDzKEtEb/3SLElpFjLG.cKtlZCLpkccpg6D7I0NJci/h/LbwsE6"], ["remember_token", "673ba9e64088657924ea9af08fc968841f518833"], ["updated_at", Thu, 27 Mar 2014 17:48:58 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_5@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:48:58 UTC +00:00], ["email", "person_5@site.com"], ["name", "Person 5"], ["password_digest", "$2a$04$.QCo.I9SwSUDXSW8oQEAVecjK2lEYvoB4vSP.IfMxM2I6RtZSqqAm"], ["remember_token", "aef6c7c513528d0619d73d37a20ba3be26011f08"], ["updated_at", Thu, 27 Mar 2014 17:48:58 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.6ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_6@site.com') LIMIT 1
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:48:58 UTC +00:00], ["email", "person_6@site.com"], ["name", "Person 6"], ["password_digest", "$2a$04$402RPkbPb9Q1fXuWuzBH6u1d5eOq/CNPjGCzr.xMty7FQfuVe1W5q"], ["remember_token", "520b1012f14dbcea4e99dcdbc4b953e5289ebc43"], ["updated_at", Thu, 27 Mar 2014 17:48:58 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.5ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_7@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:48:58 UTC +00:00], ["email", "person_7@site.com"], ["name", "Person 7"], ["password_digest", "$2a$04$kcqfAuF/jqw6PYz.qIAace4qazKuHcRyVv0Q1eFx0KcZOfUwalG8."], ["remember_token", "4c44388e33bd3ec4b210594ff2840bdc3af286fe"], ["updated_at", Thu, 27 Mar 2014 17:48:58 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.5ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_8@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:48:58 UTC +00:00], ["email", "person_8@site.com"], ["name", "Person 8"], ["password_digest", "$2a$04$.846daSGHjgs7S3ogYlKGOs2c2n1OjVCTNaWqKfHAlZNlMOZX96kW"], ["remember_token", "c96b59cdc42afd4f74a47d4aa9708d95365116af"], ["updated_at", Thu, 27 Mar 2014 17:48:58 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_9@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:48:58 UTC +00:00], ["email", "person_9@site.com"], ["name", "Person 9"], ["password_digest", "$2a$04$Gydrch4Pk3FO3qnhWSYFD.sMv.W0n41tqTOtgdDd4kmK02HLyFLsO"], ["remember_token", "729501fbce8928344234b31a5b18ac0efeb16bb0"], ["updated_at", Thu, 27 Mar 2014 17:48:58 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_10@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:48:58 UTC +00:00], ["email", "person_10@site.com"], ["name", "Person 10"], ["password_digest", "$2a$04$O2sZsB93NriKpElkiVQllezsF8bAcAMuVmmAf7TLoKp5tUWnsn7cq"], ["remember_token", "0845d9871dac5d76c51179ce20e4a101863872a7"], ["updated_at", Thu, 27 Mar 2014 17:48:58 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_11@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:48:58 UTC +00:00], ["email", "person_11@site.com"], ["name", "Person 11"], ["password_digest", "$2a$04$s.0dTetz8BeypP9mHrFnk.Zbk.awy0b9I6hmVazKxXEAf.a.a4v7e"], ["remember_token", "0c6da727afa89420b6976e58f3c8ff34650ba022"], ["updated_at", Thu, 27 Mar 2014 17:48:58 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_12@site.com') LIMIT 1
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:48:58 UTC +00:00], ["email", "person_12@site.com"], ["name", "Person 12"], ["password_digest", "$2a$04$3pVKUJdLXXaN381pHG0KUu.yLQsfLoCKS7rqyyiqC4sO8FLub/Vfi"], ["remember_token", "d5dcd79aac023433a2c3944638c5863a06ddbc96"], ["updated_at", Thu, 27 Mar 2014 17:48:58 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_13@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:48:58 UTC +00:00], ["email", "person_13@site.com"], ["name", "Person 13"], ["password_digest", "$2a$04$drfE01BNsN1IYz4KAL8ZHuCbVqx.CXf5p3CsneA6OcEOnEFrJsnei"], ["remember_token", "2fb8448be6cf205a7c2e41bae9d10507d24e7cbc"], ["updated_at", Thu, 27 Mar 2014 17:48:58 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_14@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:48:58 UTC +00:00], ["email", "person_14@site.com"], ["name", "Person 14"], ["password_digest", "$2a$04$blUXHhHpZ.E0YfE5NTCO/.hh5.NCayIxurb8h6JBPtBcFVlCrpYdG"], ["remember_token", "3de7f6daac74a332ab34b1942bcf5b0d2fba4401"], ["updated_at", Thu, 27 Mar 2014 17:48:58 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_15@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:48:58 UTC +00:00], ["email", "person_15@site.com"], ["name", "Person 15"], ["password_digest", "$2a$04$QYVySM0Rt.l07LS9K3/iMu9oSSwP9QtKV.1yQHKCBV8KfDVZEobDm"], ["remember_token", "5b5d694fbfa5e4ecfb410eb7cb96a3c3af7bdff4"], ["updated_at", Thu, 27 Mar 2014 17:48:58 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mUser Load (0.9ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 61]]
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (1.0ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_1@site.com') LIMIT 1
+  [1m[36mSQL (3.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:49:11 UTC +00:00], ["email", "person_1@site.com"], ["name", "Person 1"], ["password_digest", "$2a$04$FrAqPzmfd160Z7UsxODBGO2OXxvNjBrL7pzE0u7rPZr5Xpmo/hQUK"], ["remember_token", "966b921bd409d5801e516d7eca6b279523dc873e"], ["updated_at", Thu, 27 Mar 2014 17:49:11 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (1.2ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_2@site.com') LIMIT 1
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:49:11 UTC +00:00], ["email", "person_2@site.com"], ["name", "Person 2"], ["password_digest", "$2a$04$w9CEsFS/goZiMoPgXds/eObsSgiCNKTK6A8/bDVo0m.aqMtedRjzu"], ["remember_token", "01e11610aa95bb3d669ac29da8623ab3ea93ca40"], ["updated_at", Thu, 27 Mar 2014 17:49:11 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_3@site.com') LIMIT 1
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:49:11 UTC +00:00], ["email", "person_3@site.com"], ["name", "Person 3"], ["password_digest", "$2a$04$7yah9Vs0bo2RXfACv42MNedHYjleFl/STAlN.IMa0890XXIB3mAQu"], ["remember_token", "3f2b46aa45f05d986fdb47344c3b01fa02952565"], ["updated_at", Thu, 27 Mar 2014 17:49:11 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.5ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_4@site.com') LIMIT 1
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:49:11 UTC +00:00], ["email", "person_4@site.com"], ["name", "Person 4"], ["password_digest", "$2a$04$Ikxg.3xBhEWP696C45AW0.KPpCd2sWxO4yqq12n37X7BqqZXrM06e"], ["remember_token", "93a5c2e6bfb1a1707321f6ea74542f340fad62a3"], ["updated_at", Thu, 27 Mar 2014 17:49:11 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.7ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_5@site.com') LIMIT 1
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:49:11 UTC +00:00], ["email", "person_5@site.com"], ["name", "Person 5"], ["password_digest", "$2a$04$cOg2X7hw53daAlPb3MIA5uRLGd7PBXBn5jy5zF03mZev9lQNGWePG"], ["remember_token", "857a3e8bbce257e7171367e57b50d71d245fe3a3"], ["updated_at", Thu, 27 Mar 2014 17:49:11 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.6ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_6@site.com') LIMIT 1
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:49:11 UTC +00:00], ["email", "person_6@site.com"], ["name", "Person 6"], ["password_digest", "$2a$04$Tvq6QQNSw9Wz0rY1nit22.g9LvcyuH0jqX8wLtmJLARpmqizS8jH6"], ["remember_token", "020280169b9e9f8b4da7b4dd8ba3d2cb0712d746"], ["updated_at", Thu, 27 Mar 2014 17:49:11 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_7@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:49:11 UTC +00:00], ["email", "person_7@site.com"], ["name", "Person 7"], ["password_digest", "$2a$04$uffYQtTUsykMRxuCDvPjQO5BlMKISgiFSsunZeh78.yFOgGQIwY/K"], ["remember_token", "7e7a4808f5fdefc7df7617977e14af6e2072fbee"], ["updated_at", Thu, 27 Mar 2014 17:49:11 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_8@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:49:11 UTC +00:00], ["email", "person_8@site.com"], ["name", "Person 8"], ["password_digest", "$2a$04$DTeQpUm1DvqkYVl.igTWauYDxDXQdWGiHifsBkvG0xqTO.JIN0BFW"], ["remember_token", "195f3c87ab92a69d9a79de85746889bdb1f6d3fb"], ["updated_at", Thu, 27 Mar 2014 17:49:11 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mUser Load (0.9ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 69]]
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_9@site.com') LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["created_at", Thu, 27 Mar 2014 17:49:11 UTC +00:00], ["email", "person_9@site.com"], ["name", "Person 9"], ["password_digest", "$2a$04$C5sypUC1oQkPpP4kiOYtouyBZmupcGNS9NjzdxkV7KYExllqsgBha"], ["remember_token", "92e5b55174600523558714bbcbdd7b18ad3c2299"], ["updated_at", Thu, 27 Mar 2014 17:49:11 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_10@site.com') LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["created_at", Thu, 27 Mar 2014 17:49:11 UTC +00:00], ["email", "person_10@site.com"], ["name", "Person 10"], ["password_digest", "$2a$04$G7CgeUG64OY5VQUCt7iaZOPxqCsyVoB1s0uuxB9mClCfdfMBZK7gm"], ["remember_token", "1661be27c6d16c9b482bed8e0f106090ec2c984a"], ["updated_at", Thu, 27 Mar 2014 17:49:11 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_11@site.com') LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["created_at", Thu, 27 Mar 2014 17:49:11 UTC +00:00], ["email", "person_11@site.com"], ["name", "Person 11"], ["password_digest", "$2a$04$.qdqAX5PGHwVh215aD.TXuECZionPUZ7o/RZa8J10.3B2xSbM40Jm"], ["remember_token", "bccdd865ff9e20c172b0d0d39b89c3a16fafb562"], ["updated_at", Thu, 27 Mar 2014 17:49:11 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_12@site.com') LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["created_at", Thu, 27 Mar 2014 17:49:11 UTC +00:00], ["email", "person_12@site.com"], ["name", "Person 12"], ["password_digest", "$2a$04$DwHlGRe.leRbwuGGeiz35erdS3fDercDCIoLh/.GGOoLip8mY8boa"], ["remember_token", "1c9d6062cea41d237c23dcc305639c475ab745d7"], ["updated_at", Thu, 27 Mar 2014 17:49:11 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_13@site.com') LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["created_at", Thu, 27 Mar 2014 17:49:11 UTC +00:00], ["email", "person_13@site.com"], ["name", "Person 13"], ["password_digest", "$2a$04$GwyPnn1mG/OcZ7JeLj4UYugmGEtpRCfbzxJ7eQRjZcegAu2Kvm9Ce"], ["remember_token", "40e86c7aabee589265f27f01f366a332bd26fcfc"], ["updated_at", Thu, 27 Mar 2014 17:49:11 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_14@site.com') LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["created_at", Thu, 27 Mar 2014 17:49:11 UTC +00:00], ["email", "person_14@site.com"], ["name", "Person 14"], ["password_digest", "$2a$04$1pn6S0W.qzwZtOdkK/jyWOv6src0nzDjXS8aGxXA65Jst6E5NMa0a"], ["remember_token", "44822736049803ab1f09a412ff55c652d104642b"], ["updated_at", Thu, 27 Mar 2014 17:49:11 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_15@site.com') LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["created_at", Thu, 27 Mar 2014 17:49:11 UTC +00:00], ["email", "person_15@site.com"], ["name", "Person 15"], ["password_digest", "$2a$04$SmimWYPIHtS6PXjcmUR6petKCfA3IIb801YAzMUOxZc10A.CZS93i"], ["remember_token", "25f873fc4d4495ffdffc1dc7d063e4fed1c580d8"], ["updated_at", Thu, 27 Mar 2014 17:49:11 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.9ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_1@site.com') LIMIT 1
+  [1m[36mSQL (3.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:49:27 UTC +00:00], ["email", "person_1@site.com"], ["name", "Person 1"], ["password_digest", "$2a$04$rXCxMR6kng.5RKKzshiRQ.MkEhDQXvRNRh.8fVwdzPLAx7W1kK0Ou"], ["remember_token", "44c81a11848a153212e53e9322d743fa50586d57"], ["updated_at", Thu, 27 Mar 2014 17:49:27 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_2@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:49:27 UTC +00:00], ["email", "person_2@site.com"], ["name", "Person 2"], ["password_digest", "$2a$04$Zw8TTmmSlaBChpCBoFWCseeeXnsJVrKAvOYI3Lb3MiqVx6Bw629r."], ["remember_token", "eb03ca1a1e0e43cb2ca57a42a0e5019d5e572cf6"], ["updated_at", Thu, 27 Mar 2014 17:49:27 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_3@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:49:27 UTC +00:00], ["email", "person_3@site.com"], ["name", "Person 3"], ["password_digest", "$2a$04$smZ4bii3DSAuPNw10OT0v.rKPL2.xkgT1bFEP6rxij4dN8Hj9C.Oa"], ["remember_token", "7fa99655dc5520bdbb2b466caeb74edf4fcb8b47"], ["updated_at", Thu, 27 Mar 2014 17:49:27 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.5ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_4@site.com') LIMIT 1
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:49:27 UTC +00:00], ["email", "person_4@site.com"], ["name", "Person 4"], ["password_digest", "$2a$04$mWtLT2yH2LFsUWPJ7JH1Y.NmIO6BJ4/AzOVio8nKwFIfk2q/Pg5.O"], ["remember_token", "1303e533177e87c1dc022f35cfda73857b9adbc5"], ["updated_at", Thu, 27 Mar 2014 17:49:27 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_5@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:49:27 UTC +00:00], ["email", "person_5@site.com"], ["name", "Person 5"], ["password_digest", "$2a$04$/q0/ejk0KDAXMynsI3y1HOAAimFOtjIKW3yvQWb1jPPH10.5A.IkC"], ["remember_token", "40fde80a5bc187f7ce2147df92c54c095d9a4450"], ["updated_at", Thu, 27 Mar 2014 17:49:27 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_6@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:49:27 UTC +00:00], ["email", "person_6@site.com"], ["name", "Person 6"], ["password_digest", "$2a$04$xzZmqPaktciKewqfBan33OQvOtrR6JbPD89A98nVd7HBAGGzlHd3W"], ["remember_token", "3f66a098143aff969a70eee4f57ecf1824870466"], ["updated_at", Thu, 27 Mar 2014 17:49:27 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_7@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:49:27 UTC +00:00], ["email", "person_7@site.com"], ["name", "Person 7"], ["password_digest", "$2a$04$G9hMzoyaWflgrFgWMWvSU.tO7FZiWAv99dF1/JheZXRgXYVjwkGCG"], ["remember_token", "688b77fd267faa93a0bc596c82819f7876609f09"], ["updated_at", Thu, 27 Mar 2014 17:49:27 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_8@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:49:27 UTC +00:00], ["email", "person_8@site.com"], ["name", "Person 8"], ["password_digest", "$2a$04$j9tnm4.GoAVWVlVoMbWEu.zQ4JXMOqxfjmH3dRsPE2riI7q0s.iV6"], ["remember_token", "6adf66b1856b9cd88ece7424d81dcbed7fc8c058"], ["updated_at", Thu, 27 Mar 2014 17:49:27 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_9@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:49:27 UTC +00:00], ["email", "person_9@site.com"], ["name", "Person 9"], ["password_digest", "$2a$04$3.CKY7IK4ir.IcBxzitrsez5gzPCCeORdrqVk6LRYu18QT/H4j5Fq"], ["remember_token", "efd1ecccd284d0802684f43529e7d6e130d42978"], ["updated_at", Thu, 27 Mar 2014 17:49:27 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_10@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:49:27 UTC +00:00], ["email", "person_10@site.com"], ["name", "Person 10"], ["password_digest", "$2a$04$xNT6DQnUn0.ZuIOBo7K5du/5t3iGbIfwj.MYLqMxM4tvYv5tmUH9G"], ["remember_token", "fde1eed476d1cd76b51c6d42f95498715142dfd0"], ["updated_at", Thu, 27 Mar 2014 17:49:27 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_11@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:49:27 UTC +00:00], ["email", "person_11@site.com"], ["name", "Person 11"], ["password_digest", "$2a$04$lhj0C2CFy4iNDLw0Lmu9AuqpXQipJ.TGqL1MoF4pcIo02ca.EqgUG"], ["remember_token", "9a779ee7484d0879dd3f59c8fb10128de65ce76a"], ["updated_at", Thu, 27 Mar 2014 17:49:27 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_12@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:49:27 UTC +00:00], ["email", "person_12@site.com"], ["name", "Person 12"], ["password_digest", "$2a$04$xD/n6ZBMufL.EEOl5oyLsOVzpAdOcCqsi./JMCkVATIPZWbM4fPcu"], ["remember_token", "7741195dcd7789a9cbe38716e665f5926633e586"], ["updated_at", Thu, 27 Mar 2014 17:49:27 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_13@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:49:27 UTC +00:00], ["email", "person_13@site.com"], ["name", "Person 13"], ["password_digest", "$2a$04$LJbvPJOtd5CVny295z8lcOcKTzgawZ8T97XWLiklaNvJTNQptOop."], ["remember_token", "2b7dd303b9865f345ef0894ca679e2c58e7fd632"], ["updated_at", Thu, 27 Mar 2014 17:49:27 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_14@site.com') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Thu, 27 Mar 2014 17:49:27 UTC +00:00], ["email", "person_14@site.com"], ["name", "Person 14"], ["password_digest", "$2a$04$6MSYe2il.frvh.sjEyV04exdWRa.yOAI/Q/jFqkoWR4v/FAQyH4Aq"], ["remember_token", "06c95adf7cf1367d82c7f7128990ce20ceabfcad"], ["updated_at", Thu, 27 Mar 2014 17:49:27 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mUser Load (0.9ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 90]]
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('person_15@site.com') LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["created_at", Thu, 27 Mar 2014 17:49:27 UTC +00:00], ["email", "person_15@site.com"], ["name", "Person 15"], ["password_digest", "$2a$04$zEOVGnTWgWxStyYn5lhRwOWfuwLmmr2isoXSO1yCrdt1Mv1GU0ukK"], ["remember_token", "01cc93717e5f54bcd1465df105746ce0920d7e30"], ["updated_at", Thu, 27 Mar 2014 17:49:27 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
