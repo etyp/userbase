@@ -1,7 +1,7 @@
 class Property < ActiveRecord::Base
 	before_save :ensure_owner
 
-	belongs_to :owner, class_name: "User", foreign_key: "user_id"
+	belongs_to :user
 
 	validates :user_id, presence: true
 	validates :name, presence: true, length: {minimum: 3, maximum: 120}
@@ -14,7 +14,7 @@ class Property < ActiveRecord::Base
 
 	private
 		def ensure_owner
-			self.owner.owner?
+			self.user.owner?
 		end
 
 end

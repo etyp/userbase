@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(version: 20140326225608) do
     t.datetime "updated_at"
   end
 
+  add_index "properties", ["user_id"], name: "index_properties_on_user_id", using: :btree
+
   create_table "users", force: true do |t|
     t.string   "name"
     t.string   "email"

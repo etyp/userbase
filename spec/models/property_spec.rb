@@ -15,11 +15,11 @@ describe Property do
   it {should respond_to(:rent)}
   it {should respond_to(:user_id)}
   
-  its(:owner) {should eq owner}
+  its(:user) {should eq owner}
 
   it {should be_valid}
 
-  describe "when user_id (owner id) is not present" do
+  describe "when user_id (owner) is not present" do
   	before {@property.user_id = nil}
   	it {should_not be_valid}
   end
