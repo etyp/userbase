@@ -1,0 +1,23 @@
+<% provide(:title, "All Properties") %>
+<div class="row">
+	<h1>All properties</h1>
+	<div class="col-md-6 col-md-offset-3">
+	<% if @properties.any? %>
+		<%= will_paginate @properties, renderer: BootstrapPagination::Rails %>
+		<ul class="list-group">
+			<% if owner_user? %>
+			<li class="list-group-item">
+				<a href="<%= new_property_path(@property) %>">
+					<span class="glyphicon glyphicon-plus"></span>
+					Add New Property
+					</a>
+			</li>
+			<% end %>
+			<%= render @properties %>
+		</ul>
+		<%= will_paginate @properties, renderer: BootstrapPagination::Rails %>
+	<% else %>
+		<h3>No properties currently</h3>
+	<% end %>
+	</div>
+</div>

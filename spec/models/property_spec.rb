@@ -63,4 +63,16 @@ describe Property do
   		it {should_not be_valid}
   	end
   end
+
+
+  describe "if user is not an owner" do
+    let(:non_owner) {FactoryGirl.create(:user)}
+    before do
+      non_owner.owner = false
+      non_owner.properties << @property
+    end
+    it "should not be able to save" do
+      expect{non_owner.properties.save!}.to raise_error
+    end
+  end
 end

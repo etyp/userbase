@@ -24,6 +24,12 @@ module SessionsHelper
 		user == current_user
 	end
 
+	def owner_user?
+		if signed_in?
+			current_user.owner
+		end
+	end
+
 	def sign_out
 		current_user.update_attribute(:remember_token, User.hash(User.new_remember_token))
 		cookies.delete(:remember_token)

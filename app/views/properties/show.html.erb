@@ -1,0 +1,11 @@
+<% provide(:title, @property.name) %>
+<div class="row">
+	<section>
+	  <h1>
+	    <%= @property.name %>
+	  </h1>
+	  <p><%= @property.to_json %></p>
+	  <%= link_to "Edit", edit_property_path(@property) %>
+	  
+	</section>
+</div>

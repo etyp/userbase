@@ -14,7 +14,7 @@ class Property < ActiveRecord::Base
 
 	private
 		def ensure_owner
-			self.user.owner?
+			self.owner.owner?
 		end
 
 end

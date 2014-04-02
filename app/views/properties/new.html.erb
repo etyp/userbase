@@ -1,0 +1,36 @@
+<% provide(:title, 'Add Property') %>
+<h1>Add new property</h1>
+
+<div class="row">
+  <div class="col-md-4 col-md-offset-4">
+    <%= form_for(@property) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+
+      <%= f.label :description %>
+      <%= f.text_area :description %>
+
+      <%= f.label :beds %>
+      <%= f.select(:beds, options_for_select((0..10).to_a)) %>
+
+      <%
+      baths_list = []
+      (0..8).each do |i|
+        baths_list.insert(i, i)
+        baths_list.insert(i, i+0.5)
+      end
+      %>
+
+      <%= f.label :baths %>
+      <%= f.select(:baths, options_for_select(baths_list.sort)) %>
+
+      <%= f.label :rent %>
+      <%= f.number_field :rent %>
+
+
+      <%= f.submit "Create property", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>

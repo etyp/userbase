@@ -6,11 +6,12 @@ ruby '2.1.0'
 gem 'rails', '4.0.2'
 gem 'pg', '0.15.1'
 
-gem 'bootstrap-sass', '2.3.2.0'
+gem 'bootstrap-sass', '3.1.1.0'
 gem 'bcrypt-ruby', '3.1.2'
 gem 'faker', '1.1.2'
 gem 'will_paginate', '3.0.4'
-gem 'bootstrap-will_paginate', '0.0.9'
+gem 'will_paginate-bootstrap'
+gem 'carrierwave'
 
 
 group :development, :test do
